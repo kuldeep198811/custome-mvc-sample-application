@@ -1,0 +1,32 @@
+$('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:7,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:4
+        }
+    }
+});
+$('.owl-carousel2').owlCarousel({
+    loop:true,
+    margin:7,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:4
+        }
+    }
+});

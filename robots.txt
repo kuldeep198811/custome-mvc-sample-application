@@ -1,0 +1,18 @@
+User-agent: Twitterbot
+Disallow:
+
+User-agent: * 
+Disallow: /
+
+Disallow: /order/track/
+Disallow: /order/invoice/
+Disallow: /order/search/
+Disallow: /user/reset-password/
+Disallow: /user/profile/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /order
+Disallow: /payment/success
+Disallow: /user/confirm-account-delete
+Disallow: /checkout/order-review
+Disallow: /checkout/shipping
