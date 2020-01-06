@@ -71,7 +71,7 @@ class home extends \core\baseController
 				/* curl request start */
 				$ch = curl_init( $url );
 				# Setup request to send json via POST.
-				$payload = json_encode( array( 'customerId'=>1, 'iban'=>'DE8234', 'owner'=>'Max Mustermann') );
+				$payload = json_encode( array( 'customerId'=>$this->_registrationModel->_lastInsertedUserId, 'iban'=>trim($_POST['iban']), 'owner'=>trim($_POST['account_owner'])) );
 				curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
 				curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 				# Return response instead of printing.
