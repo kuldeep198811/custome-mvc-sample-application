@@ -43,10 +43,10 @@ class App extends Config
 		parent::__construct();
 		try{			
 			/* check if cookie settings are enabled / disabled */
-			setcookie('cookie_check', '123456', time()+60*60*24*365);
+			/* setcookie('cookie_check', '123456', time()+60*60*24*365);
 			if(!isset($_COOKIE['cookie_check'])){
 				exit('Browser cookies settings are not enabled. Please enable it to use this website');
-			}
+			} */
 			
 			/* checking csrf if enabled */
 			if ($this->_csrfTokenEnabled == true){
