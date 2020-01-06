@@ -1,18 +1,18 @@
 <?php
 namespace controllers;
+
 class home extends \core\baseController
 {
-
 	private $_registrationModel;
 	
-	public function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
 		$this->_registrationModel = $this->__model('registration');
 	}
 	
 	public function __index()
-	{
-		
+	{		
 		$this->_singleViewJSFiles 	=	[
 											$this->_assetRoot . 'js/registration-form.js'.$this->_cacheVersion
 										];
@@ -37,11 +37,10 @@ class home extends \core\baseController
 		}
 		
 		$this->__view	('home/index',	['_websiteBrandName'=>$this->_websiteBrandName, '_tempFormData'=>$this->_registrationModel->_arrReadData]);	
-	}
+	}	
 	
-	
-	public function __registration(){
-		
+	public function __registration()
+	{
 		/* form validation */
 		$_formValidation = $this->__loadLibrary('common_validation');
 		$_formValidation->__input('first_name', 'First Name')->__required()->__min(3)->__max(32);
@@ -55,11 +54,9 @@ class home extends \core\baseController
 		
 		if(!empty($_formValidation->_errors)){
 			$_SESSION[$this->_sessionPrefix]['registration_errors']    =    $_formValidation->_errors;
-		}else{		
-		
+		}else{
 			
-			
-			try{			
+			try{
 				
 				$this->_registrationModel->__beginTransactions();
 				
@@ -95,26 +92,19 @@ class home extends \core\baseController
 				curl_close($ch);
 				/* curl request end */
 				
-				
-				
 				$this->_registrationModel->__commitTransactions();
 				
 				$_SESSION[$this->_sessionPrefix]['registration_success']    =    "Data has been processed successfully.<br>Your Payment Data Id: {$_POST['paymentDataId']}";
-				$this->__redirect('/');
-				
+				$this->__redirect('/');				
 			}catch(\Exception $_e){
 				
 				$this->__rollBack();
 			}
-			
 		}
-		
-		//echo '<pre>'; print_r($_POST);exit;
 	}
 	
-	public function __saveTempForm(){
-		
-		
+	public function __saveTempForm()
+	{
 		$values = array();
 		parse_str($_POST['formData'], $values);
 		unset($values['iban']); //we can't store iban without PCI license

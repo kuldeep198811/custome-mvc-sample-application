@@ -1,5 +1,4 @@
 <?php
-
 namespace config;
 
 class Config  extends session
@@ -40,8 +39,8 @@ class Config  extends session
 	
 	protected $_cacheVersion = '?version=1.0';
 	
-	public function __construct(){
-
+	public function __construct()
+	{
 		/* database configurations */
 		$this->_databaseConfig	=	array(	'driver' 	=> 'mysql',
 											'host' 		=> 'localhost',
@@ -104,12 +103,11 @@ class Config  extends session
 	
 		@$this->_seoMeta->_description =	'meta description';
 	
-		@$this->_seoMeta->_keywords    =	'meta keywords';
-	
-        
+		@$this->_seoMeta->_keywords    =	'meta keywords';        
 	}
 
-	public function __commonAssets(){
+	public function __commonAssets()
+	{
 
 		/* list of common css */
 		$this->_listOfCommonCSSFiles	=	[
@@ -126,8 +124,6 @@ class Config  extends session
 												$this->_assetRoot.'js/jquery.smartWizard.min.js'.$this->_cacheVersion,
 												'https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js'
 											];
-
-
 	}
 
 	/* this will return url params after index.php file */
@@ -136,10 +132,10 @@ class Config  extends session
 		if(isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] != ""){
 			return(array_values(array_filter( explode('/', $_SERVER['PATH_INFO']))));
 		}
-
 	}
 
-	public function __loadLibrary($_libName,$_params=array()){
+	public function __loadLibrary($_libName,$_params=array())
+	{
 		$_libName	=	str_replace("/", "", "\library\/".$_libName."\/".strtolower($_libName));
 
 		if(is_array($_params) && !empty($_params)){
@@ -147,16 +143,17 @@ class Config  extends session
 		}else{
 			return	new $_libName();
 		}
-
 	}
 
 	/* call helper */
-	public function __loadHelper($_helperName){
+	public function __loadHelper($_helperName)
+	{
 		$_helperName	=	str_replace("/", "", "\helpers\/".strtolower($_helperName));
 		return	new $_helperName();
 	}
 	/* call additional controllers */
-	public function __loadController($_controllerName){
+	public function __loadController($_controllerName)
+	{
 		$_controllerName	=	str_replace("/", "", "\controllers\/".strtolower($_controllerName));
 		return	new $_controllerName();
 	}

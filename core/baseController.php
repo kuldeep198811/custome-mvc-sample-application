@@ -1,5 +1,6 @@
 <?php
 namespace core;
+
 class BaseController extends \core\controller
 {
 	//set class variables
@@ -11,7 +12,8 @@ class BaseController extends \core\controller
     public $_seoTagsData;
 	public $_colorCode = [];
     
-	public function __construct($_disabled=null){
+	public function __construct($_disabled=null)
+	{
 		parent::__construct();
 		$this->_helper = $this->__loadHelper('helper');
 	}
@@ -25,7 +27,7 @@ class BaseController extends \core\controller
 	{
         // Verify the reCAPTCHA response 
         $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$this->_recaptchaSecretKey.'&response='.$_recaptcha); 
-             
+		
         // Decode json data 
         $responseData = json_decode($verifyResponse); 
         if ($responseData->success) {
@@ -38,33 +40,29 @@ class BaseController extends \core\controller
 	//Call Email Template file 
 	private function __loadEmailTemplate(string $_templateName):string
 	{
-			$path = realpath(__DIR__.'/..');
-			$path= $path.'/views/_email/'.$_templateName.'.php';
-			if (file_exists($path)) {
-				return	$path;exit;
-			} else {
-				return	'no';exit;
-			}
+		$path = realpath(__DIR__.'/..');
+		$path= $path.'/views/_email/'.$_templateName.'.php';
+		if (file_exists($path)) {
+			return	$path;exit;
+		} else {
+			return	'no';exit;
+		}
 		 
 	}
 	// Replace email content with specific key
 	public function __replaceEmailTemplateContent(string $_templateName, array $_replaceArrayData)
 	{ 
 		$_emailFile = $this->__loadEmailTemplate($_templateName);
-		if( $_emailFile != 'no' )
-		{ 
+		if( $_emailFile != 'no' ){
 			$_readTemplateFile = file_get_contents($this->__loadEmailTemplate($_templateName));
-			if(sizeof($_replaceArrayData) > 0)
-			{
-				foreach($_replaceArrayData as $key=>$value)
-				{
+			if(sizeof($_replaceArrayData) > 0){
+				foreach($_replaceArrayData as $key=>$value){
 					$_readTemplateFile = str_replace('{{'.$key.'}}', $value, $_readTemplateFile);
 				}
 			}
 			return $_readTemplateFile;exit;
-		}
-		else{
-			return 0;exit;
+		}else{
+			return 0;
 		}
 
 	}
@@ -74,7 +72,6 @@ class BaseController extends \core\controller
 	*/
 	public function __xssClean(string $_string):string
 	{
-
 		// Remove any attribute starting with "on" or xmlns
 		$_string = preg_replace('#(<[^>]+?[\x00-\x20"\'])(?:on|xmlns)[^>]*+>#iu', '$1>', $_string);
 
@@ -91,13 +88,11 @@ class BaseController extends \core\controller
 		// Remove namespaced elements (we do not need them)
 		$_string = preg_replace('#</*\w+:\w[^>]*+>#i', '', $_string);
 
-		do
-		{
+		do{
 		    // Remove really unwanted tags
 		    $old_data = $_string;
 		    $_string = preg_replace('#</*(?:applet|b(?:ase|gsound|link)|embed|frame(?:set)?|i(?:frame|layer)|l(?:ayer|ink)|meta|object|s(?:cript|tyle)|title|xml)[^>]*+>#i', '', $_string);
-		}
-		while ($old_data !== $_string);
+		}while ($old_data !== $_string);
 
 		// we are done...
 		$_string = filter_var($_string, FILTER_SANITIZE_STRING);
@@ -118,7 +113,8 @@ class BaseController extends \core\controller
 	}	
 	
 	//Address validation START*************************
-	public function isAddressValidationApi(string $country, array $post):array{
+	public function isAddressValidationApi(string $country, array $post):array
+	{
 		if(!empty($country) && !empty($post)){
 			$zipcode = $post['zipcode'];
 			if(strlen($zipcode) == 4){
@@ -143,14 +139,14 @@ class BaseController extends \core\controller
 			}else{
 				return ['success'=>'Invalid Address'];
 			}			
-		curl_close($curl);
+			curl_close($curl);
 		}else{
 			return [];
 		}
 	}
 
-    public function _ups_validate_address(array $post):bool{
-
+    public function _ups_validate_address(array $post):bool
+	{
         if(empty($post)){
             return false;
         }
@@ -176,8 +172,8 @@ class BaseController extends \core\controller
 
         $xav = new \Ups\AddressValidation($accesskey, $userid, $passwd);
         $xav->activateReturnObjectOnValidate(); //This is optional
+		
         try {
-
             $response = $xav->validate($address, $requestOption = \Ups\AddressValidation::REQUEST_OPTION_ADDRESS_VALIDATION, $maxSuggestion = 5);
 
             if ($response->isValid()) {
@@ -203,4 +199,3 @@ class BaseController extends \core\controller
     }
 	//Address validation STOP*************
 }
-?>

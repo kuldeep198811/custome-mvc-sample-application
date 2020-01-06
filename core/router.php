@@ -1,19 +1,20 @@
 <?php
 namespace core;
+
 class Router extends \config\config
 {
 
-  protected $_routes = [];
+	protected $_routes = [];
 
-  protected $_params = [];
+	protected $_params = [];
 
-  public function __construct(){
-    parent::__construct();
-  }
+	public function __construct()
+	{
+		parent::__construct();
+	}
   
-  public function add(string $_route, array $_params = [])
-  {
-
+	public function add(string $_route, array $_params = [])
+	{
         /* its a very simple routing which we can improve in future */
         $_url = $_originaURL = $this->__parseUrl();
         if($_url != ""){
@@ -26,12 +27,6 @@ class Router extends \config\config
                 $_coreController	=	new controller;
                 $_coreController->__redirect('/'.$_route.'/'.implode('/', $_preservedParams));
             }
-            /*if(strpos(strtolower(implode('/', $_originaURL)), strtolower(implode('/', $_params))) !== false){
-			
-    			$_coreController	=	new controller;
-    			$_redirectURL		=	'/'.str_replace(array(strtolower(implode('/', $_params))), array($_route), implode('/', $_originaURL));
-    			$_coreController->__redirect($_redirectURL);
-    		}*/
     
             /* below code tells the program about actual controller and method */
             $_requestURI  = implode('/',array_slice($_url, 0, $spliceUpTolength));
@@ -39,14 +34,13 @@ class Router extends \config\config
                 $_SERVER['PATH_INFO']	=	implode('/', array_merge($_params, $_preservedParams));
             }
         }
-
     }
   
-	public function productDetailsRouting(){
+	public function productDetailsRouting()
+	{
 		$_url	=	$this->__parseUrl();
 		if($_url != ""){
 			print_r($_url);
 		}
 	}
-  
 }

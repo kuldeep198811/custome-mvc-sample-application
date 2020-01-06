@@ -1,19 +1,17 @@
 <?php
 namespace core;
+
 class View extends \config\config
 {
 	protected $_file;
-
 	protected $_data;
-
 	protected $_baseController;
     public $_storeName;
 	public $_storeDetail;
 	public $_loadPromotion;
 
 	public function __construct(string $_file, array $_data, array $_singleViewCSSFiles, array $_singleViewJSFiles, bool $_includeHeader, bool $_includeLeftNav, bool $_includeFooter, $_seoMeta)
-	{
-		
+	{		
 		parent::__construct();
 		$this->_file = $_file;
 		$this->_data = $_data;
@@ -27,8 +25,7 @@ class View extends \config\config
 		
 		$this->_baseController		=	new \core\baseController;
 		
-		$this->_seoMeta				=	$_seoMeta;
-		
+		$this->_seoMeta				=	$_seoMeta;		
 	}
 
 	/* return valus always should be string */
@@ -38,12 +35,10 @@ class View extends \config\config
 	}
 
 	public function __parseView()
-	{
-		
+	{		
 		try
 		{
 				$_file = "views/".$this->_file.'.php';  // relative to Core directory
-
 	        if (is_readable($_file)) {
 	            ob_start();
 
@@ -65,24 +60,20 @@ class View extends \config\config
 				}
 
 				return $_string = ob_get_clean();
-
-
 	        } else {
 	            throw new \Exception($_file." not found");
 	        }
-		}
-		catch (\Error $e)
-		{
-				//die('hi');
+		}catch (\Error $e){
+			//die('hi');
 			echo 'Message: ' .$e->getMessage() .' in '. $e->getFile() .' Line '. $e->getLine(),  "\n";
-		  //throw new \Error($a);
+			//throw new \Error($a);
 		}
 
 	}
 
 	/* generate csrf token if enabled */
-	protected function __generateCsrfToken(){
-
+	protected function __generateCsrfToken()
+	{
 		if (empty($_SESSION[$this->_sessionPrefix]['csrf_token_hash'])) {
 			echo $_SESSION[$this->_sessionPrefix]['csrf_token_hash'];
 			$_SESSION[$this->_sessionPrefix]['csrf_token_hash'] = (floor(phpversion()) >= 7)? bin2hex(random_bytes(32)):bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
@@ -91,7 +82,8 @@ class View extends \config\config
 	}
 
 	/* start form tag to handle form start elements and csrf globally */
-	protected function __formStart(string $_action, string $_method='post', string $_formId='', string $_formClass='', string $_autocomplete="off", string $_enctype='', array $_arrAdditionalAttr=[], bool $_csrfSingleForm = true):string{
+	protected function __formStart(string $_action, string $_method='post', string $_formId='', string $_formClass='', string $_autocomplete="off", string $_enctype='', array $_arrAdditionalAttr=[], bool $_csrfSingleForm = true):string
+	{
 		$_enctype	=	($_enctype != '')? 'enctype="'.$_enctype.'"':'';
 
 			$csrfTokenInput	=	'';
@@ -99,11 +91,11 @@ class View extends \config\config
 			$this->__generateCsrfToken();
 			$csrfTokenInput	=	'<input type="hidden" name="csrf_token" value="'.$this->_csrfToken.'" />';
 		}
-
 		return	'<form action="'.$this->_basePath.$_action.'" method="'.$_method.'" id="'.$_formId.'" class="'.$_formClass.'" autocomplete="'.$_autocomplete.'" '.$_enctype.' '.implode($_arrAdditionalAttr, ' ').'>'.$csrfTokenInput;
 	}
 
-	protected function __formEnd():string{
+	protected function __formEnd():string
+	{
 		return '</form>';
 	}
 

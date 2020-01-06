@@ -1,12 +1,12 @@
 <?php
 namespace core;
+
 /*
 @dev_name 	:	kuldeep singh
 @description:	medium level crud library
 */
 class Model extends \config\config
 {
-
 	protected 	$_db = null;
 	protected 	$_tableName;
 	protected	$_arrWhereClouseColumns;
@@ -30,29 +30,21 @@ class Model extends \config\config
 		//$this->_displayAllQuries = true;
 		parent::__construct();
 		try{
-
-				if($this->_databaseDriver == 'mysql'){
-
+			if($this->_databaseDriver == 'mysql'){
 				$_dns 	= 	$this->_databaseDriver.':dbname=' . $this->_databaseConfig['database'] . ";host=" . $this->_databaseConfig['host'];
-
 			}else{
-
 				$_dns 	= 	$this->_databaseDriver.':Server='.$this->_databaseConfig['host'].';Database='.$this->_databaseConfig['database'];
-
 			}
 			$this->_db = new \PDO($_dns, $this->_databaseConfig['username'], $this->_databaseConfig['password']);
 			$this->_db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-
 		}catch(\PDOException $_e){
 			$this->__queryErrorDebug('Unable to connect database.', $_e);
 		}
-
 	}
 
 	/* reset param values */
-	public function __resetObjVars(){
-
+	public function __resetObjVars()
+	{
 		$this->_tableName				= 	'';
 		$this->_arrWhereClouseColumns	=	[];
 		$this->_getWhereClauseParam		=	'';
@@ -66,36 +58,38 @@ class Model extends \config\config
 		$this->_orderBy					=	'';
 		$this->_groupBy					=	'';
 		$this->_having					=	'';
-
 	}
 
 	/*
 	@description: begin transation
 	*/
-	public function __beginTransactions(){
+	public function __beginTransactions()
+	{
 		$this->_db->beginTransaction();
 	}
 
 	/*
 	@description: rollback if something not inserted/updated in tables.
 	*/
-	public function __rollBack(){
+	public function __rollBack()
+	{
 		$this->_db->rollBack();
 	}
 
 	/*
 	@description: Commit TRANSACTIONS.
 	*/
-	public function __commitTransactions(){
+	public function __commitTransactions()
+	{
 		$this->_db->commit();
 	}
 
 	/*
 	@description: setup where clause in @string
 	*/
-	public function __setTable(string $_tableName){
+	public function __setTable(string $_tableName)
+	{
 		$this->__resetObjVars();
-
 		$this->_tableName	=	$_tableName;
 		return $this;
 	}
@@ -103,8 +97,8 @@ class Model extends \config\config
 	/*
 	@description: setup where clause in @array
 	*/
-	public function __setArrSelectColumns(array $_arrColumns){
-
+	public function __setArrSelectColumns(array $_arrColumns)
+	{
 			$_arrColumns			=	$this->__arrayFilter($_arrColumns);
 		if(!empty($_arrColumns)){
 			$this->_selectCoumns	=	implode($_arrColumns, ', ');
@@ -116,8 +110,8 @@ class Model extends \config\config
 	/*
 	@description:	set order by @array, @string
 	*/
-	public function __setOrderBy(array $_arrOrderByColumns, string $_order='asc'){
-
+	public function __setOrderBy(array $_arrOrderByColumns, string $_order='asc')
+	{
 			$_arrOrderByColumns	=	$this->__arrayFilter($_arrOrderByColumns);
 		if(!empty($_arrOrderByColumns)){
 			$this->_orderBy		=	' ORDER BY '. implode($_arrOrderByColumns, ',').' '.$_order.' ';
@@ -128,8 +122,8 @@ class Model extends \config\config
 	/*
 	@description:	set order by @string
 	*/
-	public function __setGroupBy(string $_groupByColumns){
-
+	public function __setGroupBy(string $_groupByColumns)
+	{
 		if($_groupByColumns != ''){
 			$this->_groupBy	=	' GROUP BY '.$_groupByColumns.' ';
 		}
@@ -139,15 +133,16 @@ class Model extends \config\config
 	/*
 	@description:	set order by @string
 	*/
-	public function __setHaving(string $_havingCondition){
-
+	public function __setHaving(string $_havingCondition)
+	{
 		if($_havingCondition != ''){
 			$this->_having	=	' having '.$_havingCondition.' ';
 		}
 		return $this;
 	}
 
-	public function __arrayFilter(array $_array){
+	public function __arrayFilter(array $_array)
+	{
 	    $_returnArray = array();
 	    foreach($_array AS $_key=>$_value){
 				if($_value===''){
@@ -155,14 +150,14 @@ class Model extends \config\config
 				}
 	      $_returnArray[$_key] = $_value;
 	    }
-	  return   $_returnArray;
+		return   $_returnArray;
 	}
 
 	/*
 	@description: insert and update data in @array
 	*/
-	public function __setData(array $_arrData){
-
+	public function __setData(array $_arrData)
+	{
 			$this->_arrSetColumns	=	$this->_arrSetRowData	=	[];
 			$_arrData				=	$this->__arrayFilter($_arrData);
 
@@ -178,13 +173,11 @@ class Model extends \config\config
 		return $this;
 	}
 
-
-
 	/*
 	@description: set comparing operator ( =, <=>, >, >=, IS NULL, IS NOT NULL, <, <=, LIKE, !=, <>, NOT LIKE )
 	*/
-	public function __setArrComparisonOperator(array $_arrOperators){
-
+	public function __setArrComparisonOperator(array $_arrOperators)
+	{
 			$_arrOperators		=	$this->__arrayFilter($_arrOperators);
 		if(!empty($_arrOperators)){
 			$this->_operator 	=	$_arrOperators;
@@ -195,13 +188,12 @@ class Model extends \config\config
 	/*
 	@description: setup where clause in @array
 	*/
-	public function __setArrWhereClauseUsingAnd(array $_arrWhereClouse){
-
+	public function __setArrWhereClauseUsingAnd(array $_arrWhereClouse)
+	{
 			$_arrWhereClouse	=	$this->__arrayFilter($_arrWhereClouse);
 		if(is_array($_arrWhereClouse) && !empty($_arrWhereClouse)){
 				$_i = 0;
 			foreach($_arrWhereClouse as $_key=>$_val){
-
 				$_dataReferrer	=	str_replace('.', '_', $_key);
 
 				$this->_operator[$_i]	=	(!isset($this->_operator[$_i]) || !is_string($this->_operator[$_i]))? '=':strtoupper($this->_operator[$_i]);
@@ -223,22 +215,18 @@ class Model extends \config\config
 					$this->_arrSetRowData	=	array_merge($this->_arrSetRowData, [$_dataReferrer=>$_val]);
 
 				}
-
-
 				$_i++;
 			}
-
 			$this->_getWhereClauseParam	=	' WHERE '.implode($this->_arrWhereClouseColumns, ' AND ');
 		}
 		return $this;
-
 	}
 
 	/*
 	@description: setup where clause in @array
 	*/
-	public function __setArrWhereClauseUsingOr(array $_arrWhereClouse){
-
+	public function __setArrWhereClauseUsingOr(array $_arrWhereClouse)
+	{
 				$_arrWhereClouse=	$this->__arrayFilter($_arrWhereClouse);
 
 		if(is_array($_arrWhereClouse) && !empty($_arrWhereClouse)){
@@ -252,14 +240,13 @@ class Model extends \config\config
 			$this->_getWhereClauseParam	=	' WHERE '.implode($_arrInValues, ' OR ');
 		}
 		return $this;
-
 	}
 
 	/*
 	@description: setup where clause in @array
 	*/
-	public function __setArrWhereClauseUsingIN(array $_arrWhereClouse, string $_gate='OR'){
-
+	public function __setArrWhereClauseUsingIN(array $_arrWhereClouse, string $_gate='OR')
+	{
 			$_arrWhereClouse	=	$this->__arrayFilter($_arrWhereClouse);
 
 		if(is_array($_arrWhereClouse) && !empty($_arrWhereClouse)){
@@ -269,25 +256,22 @@ class Model extends \config\config
 				$_arrInValues[]	=	$_column." IN(".implode(", ", array_map(function($_val){return sprintf("'%s'", $_val);}, $_arrValues)).") ";
 
 			}
-
 			$this->_getWhereClauseParam	=	' WHERE '.implode($_arrInValues, ' '.$_gate. ' ');
 		}
 		return $this;
-
 	}
 
 	/*
 	@description: SQL BETWEEN Operator
 	*/
-	public function __setBetweenWhereClause(array $_arrBetweenData){
-
+	public function __setBetweenWhereClause(array $_arrBetweenData)
+	{
 			$_arrBetweenData		=	$this->__arrayFilter($_arrBetweenData);
 		if(!empty($_arrBetweenData)){
 				$_arrBetweenValues		=	[];
 			foreach($_arrBetweenData as $_column=>$_betweenData){
 				$_arrBetweenValues[] 	=	'('.$_column.' BETWEEN '.implode($_betweenData, ' AND ').')';
 			}
-
 			$this->_getWhereClauseParam	=	' WHERE '.implode($_arrBetweenValues, ' AND ');
 		}
 		return $this;
@@ -296,23 +280,19 @@ class Model extends \config\config
 	/*
 	@description: setup limit and offset @array, @string
 	*/
-	public function __setBunchWhereClause(array $_arrWhereClouse, string $_bunchSeperator){
-
+	public function __setBunchWhereClause(array $_arrWhereClouse, string $_bunchSeperator)
+	{
 		return $this;
-
 	}
 
 	/*
 	@description: setup limit and offset @int
 	*/
-	public function __setLimitOffset(int $_limit, int $_offset=0){
-
+	public function __setLimitOffset(int $_limit, int $_offset=0)
+	{
 		if($_limit > 0 && $_offset >= 0 && $this->_orderBy != ""){
-
-		//	$this->_limitParams			=	($this->_databaseDriver == 'mysql')? ' limit :limit':' ROWS FETCH NEXT :limit ROWS ONLY ';
-
+			//	$this->_limitParams		=	($this->_databaseDriver == 'mysql')? ' limit :limit':' ROWS FETCH NEXT :limit ROWS ONLY ';
 			//$this->_offsetParams		=	' offset :offset';
-
 			$this->_arrLimitOffsetData	=	['limit'	=>	$_limit, 'offset'	=>	$_offset];
 		}
 		return $this;
@@ -321,8 +301,8 @@ class Model extends \config\config
 	/*
 	@description: setup tables joining @string, @array
 	*/
-	public function __setJoin(string $_joinTable, string $_joinType, array $_arrJoinCondition){
-
+	public function __setJoin(string $_joinTable, string $_joinType, array $_arrJoinCondition)
+	{
 			$_arrJoinCondition		=	$this->__arrayFilter($_arrJoinCondition);
 		if($_joinTable != "" && $_joinType != '' && !empty($_arrJoinCondition)){
 			$this->_tablesBinding	.=	' '.$_joinType.' join '.$_joinTable.' on('.implode($_arrJoinCondition, ' AND ').') ';
@@ -333,10 +313,10 @@ class Model extends \config\config
 	/*
 	@description: create records @int
 	*/
-	public function __createRecords():int{
+	public function __createRecords():int
+	{
 
 		try{
-
 			if($this->_databaseDriver == 'mysql'){
 				$_sqlStmt 	= 	'INSERT INTO '.$this->_tableName.' SET '.implode($this->_arrSetColumns, ', ');
 			}else{
@@ -354,22 +334,18 @@ class Model extends \config\config
 			}else{
 				return 0;
 			}
-
 		}catch(\Exception $_e){
-
 			$this->__queryErrorDebug($_sqlStmt, $_e);
-
 		}finally{
 			//$result->closeCursor();
 		}
-
 	}
 
 	/*
 	@description: select records in @array
 	*/
-	public function __readRecords():bool{
-
+	public function __readRecords():bool
+	{
 		try{
 			if($this->_databaseDriver == 'mysql'){
 				$_sqlStmt 	= 	'SELECT '.$this->_selectCoumns.' FROM '.$this->_tableName . $this->_tablesBinding . $this->_getWhereClauseParam . $this->_groupBy . $this->_having . $this->_orderBy  . $this->_limitParams . $this->_offsetParams ;
@@ -400,26 +376,21 @@ class Model extends \config\config
 			}else{
 				return false;
 			}
-
 		}catch(\Exception $_e){
-
 			$this->__queryErrorDebug($_sqlStmt, $_e);
-
 		}finally{
 			$_result->closeCursor();
 		}
 		/* this will free up the memory */
 		//$result->closeCursor();
-
 	}
 
 	/*
 	@description: update records @boolean
 	*/
-	public function __updateRecords():bool{
-
+	public function __updateRecords():bool
+	{
 		try{
-
 			$_sqlStmt	= 	'UPDATE '.$this->_tableName.' SET ' . implode($this->_arrSetColumns, ', ') . $this->_getWhereClauseParam;
 			if($this->_displayAllQuries === true){
 				$this->__printQueries($_sqlStmt);
@@ -439,16 +410,14 @@ class Model extends \config\config
 		}finally{
 			//$_result->closeCursor();
 		}
-
 	}
 
 	/*
 	@description: delete records @boolean
 	*/
-	public function __deleteRecords():bool{
-
+	public function __deleteRecords():bool
+	{
 		try{
-
 			$_sqlStmt	= 	'DELETE FROM '.$this->_tableName . $this->_getWhereClauseParam;
 			if($this->_displayAllQuries === true){
 				$this->__printQueries($_sqlStmt);
@@ -460,13 +429,9 @@ class Model extends \config\config
 			}else{
 				return false;
 			}
-
 		}catch(\Exception $_e){
-
 			$this->__queryErrorDebug($_sqlStmt, $_e);
-
 			/* log query errors in a file according to month folder with per day */
-
 		}finally{
 			//$result->closeCursor();
 		}
@@ -475,11 +440,10 @@ class Model extends \config\config
 	/*
 	@description: custom query if required in @string
 	*/
-	public function __callCustomQuery(string $_sqlStmt, string $command="select"){
-
+	public function __callCustomQuery(string $_sqlStmt, string $command="select")
+	{
 		try{
 			if($_sqlStmt != ""){
-
 				if($this->_displayAllQuries === true){
 					$this->__printQueries($_sqlStmt);
 				}
@@ -493,17 +457,14 @@ class Model extends \config\config
 				}	
 			}
 		}catch(\Exception $_e){
-
 			$this->__queryErrorDebug($_sqlStmt, $_e);
-
 		}finally{
 			//$result->closeCursor();
 		}
-
 	}
 
-	public function __queryErrorDebug(string $_sqlStmt, object $_e){
-
+	public function __queryErrorDebug(string $_sqlStmt, object $_e)
+	{
 		//Something to write to txt log
 		$_dbLog	= 	"USER	:	".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a"). PHP_EOL .
 					"URL	: 	".$_SERVER['REQUEST_URI']. PHP_EOL .
@@ -552,17 +513,16 @@ class Model extends \config\config
 		}
 	}
 
-
 	/**
- * A custom function that automatically constructs a multi insert statement.
- *
- * @param string $tableName Name of the table we are inserting into.
- * @param array $data An "array of arrays" containing our row data.
- * @param PDO $pdoObject Our PDO object.
- * @return boolean TRUE on success. FALSE on failure.
- */
-	function __pdoMultiInsert(string $tableName, array $data){
-
+	 * A custom function that automatically constructs a multi insert statement.
+	 *
+	 * @param string $tableName Name of the table we are inserting into.
+	 * @param array $data An "array of arrays" containing our row data.
+	 * @param PDO $pdoObject Our PDO object.
+	 * @return boolean TRUE on success. FALSE on failure.
+	*/
+	function __pdoMultiInsert(string $tableName, array $data)
+	{
 	    //Will contain SQL snippets.
 	    $rowsSQL = array();
 
@@ -597,16 +557,17 @@ class Model extends \config\config
 	    //Execute our statement (i.e. insert the data).
 	    return $pdoStatement->execute();
 	}
-
-
+	
 	/*
 	@description: close db connection after process
 	*/
-	public function __destruct(){
+	public function __destruct()
+	{
 		$this->_db = null;
 	}
 	
-	public function __printQueries($_sqlStmt):void{
+	public function __printQueries($_sqlStmt):void
+	{
 		echo '<div style="display:none" class="query_display">'.$_sqlStmt.'</div>';
 	}
 

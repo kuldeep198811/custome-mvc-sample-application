@@ -41,9 +41,7 @@ class App extends Config
 	public function __construct()
 	{
 		parent::__construct();
-
-		try{
-			
+		try{			
 			/* check if cookie settings are enabled / disabled */
 			setcookie('cookie_check', '123456', time()+60*60*24*365);
 			if(!isset($_COOKIE['cookie_check'])){
@@ -51,8 +49,7 @@ class App extends Config
 			}
 			
 			/* checking csrf if enabled */
-			if ($this->_csrfTokenEnabled == true) {
-
+			if ($this->_csrfTokenEnabled == true){
 				/* check if csrf enable and csrf input matching token is not coming */
 				//echo $_POST['csrf_token'];die;
 				if(isset($_POST) && count(array_filter($_POST)) > 0 && (!isset($_POST['csrf_token']) || empty($_POST['csrf_token']))){
@@ -96,8 +93,7 @@ class App extends Config
 					if(method_exists($this->_controller, $_url[1])) {
 						$this->_method = $_url[1];
 						unset($_url[1]);
-					}
-					else{
+					}else{
 						$this->__error404();
 					}
 				}
@@ -132,10 +128,7 @@ class App extends Config
 			else{
 				$this->__error404();
 			}
-
 		}catch(\Exception $_e){
-
-
 			if($this->_displayAplicationErrors == false){
 				//Something to write to txt log
 				$_dbLog	= 	"USER	:	".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a"). PHP_EOL .
@@ -179,7 +172,8 @@ class App extends Config
 		error handler UI page
 		@var, @type
 	*/
-	private function __error404():void{
+	private function __error404():void
+	{
 		header('location: '. $this->_basePath.'/error/404');
 		exit;
 	}
@@ -188,12 +182,10 @@ class App extends Config
 		ACL handler method
 		@var, @type, @return void
 	*/
-	private function __getSetUsersPrevilages():void{
-
+	private function __getSetUsersPrevilages():void
+	{
 		if(isset($_SESSION[$this->_sessionPrefix]['user_id']) && $_SESSION[$this->_sessionPrefix]['user_id'] > 0){
-
 			$_db 		=	new model();
-
 			$_db->__setTable('bamko_users_acl')
 					->__setArrSelectColumns(['allow_controller', 'allow_action'])
 					->__setArrWhereClauseUsingAnd(['user_id' => $_SESSION[$this->_sessionPrefix]['user_id']])
@@ -212,17 +204,15 @@ class App extends Config
 					}
 
 				}
-
 				/* this is to prevent multiple hitting on database */
 				$_SESSION[$this->_sessionPrefix]['acl_list']	=	$_aclList;
-
 			}
 		}
 
 	}
 
-	protected function __checkAllowedClientIPs():void {
-
+	protected function __checkAllowedClientIPs():void 
+	{
 		try{
 			if (getenv('HTTP_CLIENT_IP'))
 				$this->_ipaddress = getenv('HTTP_CLIENT_IP');
