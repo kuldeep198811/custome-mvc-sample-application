@@ -1,7 +1,6 @@
 <?php 
 class BreadCrumb_helper 
 {
-
 	private $_breadCrumbs = array();
 	private $_tags = array();
 	private $_index = '';
@@ -59,7 +58,6 @@ class BreadCrumb_helper
 	
 	public  function __render()
 	{
-
 		if(!empty($this->_tags['open'])){
 			$this->_output = $this->_tags['open'];
 		}else{
@@ -90,5 +88,4 @@ class BreadCrumb_helper
 		}		
 		return $this->_output;
 	}
-
 }

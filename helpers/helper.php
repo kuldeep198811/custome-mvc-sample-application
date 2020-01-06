@@ -2,10 +2,9 @@
 namespace helpers;
 /*
 ============ Helper functions ======
-@developer : Mohit Singh Rawat
 */
-class helper {
-
+class helper 
+{
 	private $_db = null;
 	public function __construct(){
 		$this->_db = new \core\model();
@@ -13,7 +12,7 @@ class helper {
 
 	/*
 	@description : function to generate data in array format
-	@developer : Mohit Singh Rawat
+	@developer : Kuldeep
 	@param data type Array
 	@return array in readable format
 	*/
@@ -29,7 +28,7 @@ class helper {
 
 	/*
 	@description : function to generate random string
-	@developer : Mohit Singh Rawat
+	@developer : Kuldeep
 	@parama $length
 	* return random string
 	*/
@@ -45,7 +44,7 @@ class helper {
 
 	/*
 	@description : function to split uri array by delimeter '/'
-	@developer : Mohit Singh Rawat
+	@developer : Kuldeep
 	*@param string
 	*@return array();
 	*/
@@ -57,7 +56,7 @@ class helper {
 
 	/*
 	@description : for escaping single quotes from string
-	@developer : Mohit Singh Rawat
+	@developer : Kuldeep
 	@return escaped string
 	*/
 	public  function __mssqlEscape($_str)
@@ -70,7 +69,7 @@ class helper {
 
 	/*
 	@description : Pagination
-	@developer : Mohit Singh Rawat
+	@developer : Kuldeep
 	@params : $_item_per_page,$_currentPage,$_total_records,$_totalPages,$_pageUrl
 	@return the paginate html
 	*/
@@ -135,7 +134,7 @@ class helper {
 
 	/*
 	@description : Convert Price to Crores or Lakhs or Thousands
-	@developer : Mohit Singh Rawat
+	@developer : Kuldeep
 	@return : e.g. 1 Crore 5 thousand
 	*/
 	public  function __convertCurrency($_number)
@@ -370,7 +369,7 @@ class helper {
 
     /**
     *@description : Validate a given email address.
-    *@developer : Mohit Singh Rawat
+    *@developer : Kuldeep
     * @param string $email
     * The email address to test.
     *
@@ -384,7 +383,7 @@ class helper {
 
     /**
 	*@description : Get the current ip address of the user.
-	*@developer : Mohit singh Rawat
+	*@developer : Kuldeep
 	* #### Example
 	* echo ip();
 	* @return string|null
@@ -404,7 +403,7 @@ class helper {
 
     /*
 	@description :  outlook email validator
-	@developer : Mohit singh Rawat
+	@developer : Kuldeep
 	reference :	<a href="http://msdn.microsoft.com/en-us/library/aa338201.aspx">
     */
     public  function __emailValidator($_emailTemplate){
@@ -460,7 +459,7 @@ class helper {
 
 		/*
 	@description :  Return/unset session array
-	@developer : Ganesh
+	@developer : Kuldeep
 		*/
 
 		public $_arrVarCharSession;
@@ -501,7 +500,7 @@ class helper {
 
 		/**
 		*@description : Remove special charactor from string.
-		*@developer : Virendra Kumar
+		*@developer : Kuldeep
 		* @return string
 		* Replace special charactor given charactor for seo purpose.
 		*/
@@ -555,7 +554,7 @@ class helper {
 
 	    /**
 		*@description : Create sorting url .
-		*@developer : Virendra Kumar
+		*@developer : Kuldeep
 		*/
 	    public function __sortingUrl($_page,$_sortStr){
             /*Set auto select filter value in left panelof product listing*/
@@ -805,7 +804,7 @@ class helper {
 
 		/**
 		*@description : Sort size order given sort order value.
-		*@developer : Virendra Kumar
+		*@developer : Kuldeep
 		* @return array
 		*/
 	    public  function __sizeSortForFilter($_sizeResult,$_sortOrder)
@@ -833,7 +832,7 @@ class helper {
 
 	    /*
 	@description : Pagination
-	@developer : Mohit Singh Rawat
+	@developer : Kuldeep
 	@params : $_item_per_page,$_currentPage,$_total_records,$_totalPages,$_pageUrl
 	@return the paginate html
 	*/
@@ -914,7 +913,7 @@ class helper {
 
 		/**
 		*@description : Remove special charactor from sitemap xml string.
-		*@developer : Virendra Kumar
+		*@developer : Kuldeep
 		* @return string
 		* Replace special charactor given charactor for seo purpose.
 		*/
@@ -937,7 +936,7 @@ class helper {
 	    
 	    /**
 		*@description : Remove special charactor from filter type option.
-		*@developer : Virendra Kumar
+		*@developer : Kuldeep
 		* @return string
 		* Replace special charactor given charactor for seo purpose.
 		*/
@@ -964,7 +963,6 @@ class helper {
 	    
 	    /**
 	*@description : Create breadcrame.
-	*@developer : Virendra Kumar
 	* @return string
 	* Replace special charactor given charactor for seo purpose.
 	*/
@@ -986,7 +984,7 @@ class helper {
 
    	/**
 	*@description : Create breadcrame.
-	*@developer : Virendra Kumar
+	*@developer : Kuldeep
 	* @return string
 	* Replace special charactor given charactor for seo purpose.
 	*/
@@ -1022,6 +1020,4 @@ class helper {
         return $_breadCrumb;
 
    }
-
 }
-?>

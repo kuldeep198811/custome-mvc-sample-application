@@ -1,7 +1,6 @@
 <?php
 class breadcrumb 
 {
-
 	private $_breadCrumbs = array();
 	private $_tags = array();
 	private $_index = '';
@@ -59,7 +58,6 @@ class breadcrumb
 
 	public  function __render()
 	{
-
 		if(!empty($this->_tags['open'])){
 			$this->_output = $this->_tags['open'];
 		}else{
@@ -90,5 +88,4 @@ class breadcrumb
 		}
 		return $this->_output;
 	}
-
 }

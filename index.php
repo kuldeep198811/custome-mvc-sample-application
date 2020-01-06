@@ -1,5 +1,4 @@
 <?php
-
 /*
 	@author 		: 	Kuldeep Singh
 	@startDate		:	17-Jan-2019
@@ -65,7 +64,6 @@ spl_autoload_register(function($className) {
 /* this is to prevent the xss and sanitinze the data */
 $_POST 	=	filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-
 /* add routing to understand modified URLs */
 $router	=	new core\router();
 
@@ -74,7 +72,6 @@ $router->add('save-temp-form', ['controller' => 'home', 'action' => 'saveTempFor
 
 /* initiat application */
 $app	=	new core\app();
-
 
 // close session to speed up the concurrent connections
 // http://php.net/manual/en/function.session-write-close.php

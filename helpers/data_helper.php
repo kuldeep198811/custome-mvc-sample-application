@@ -3,11 +3,10 @@
 ============ Helper functions ====== 
 @developer : Mohit Singh Rawat
 */
-class Data_helper {
-
+class Data_helper 
+{
 	/*
 	@description : function to generate data in array format
-	@developer : Mohit Singh Rawat
 	@param data type Array
 	@return array in readable format
 	*/
@@ -23,7 +22,6 @@ class Data_helper {
 	
 	/*
 	@description : function to generate random string
-	@developer : Mohit Singh Rawat
 	@parama $length
 	* return random string
 	*/
@@ -39,7 +37,6 @@ class Data_helper {
 
 	/* 
 	@description : function to split uri array by delimeter '/'
-	@developer : Mohit Singh Rawat
 	*@param string
 	*@return array();
 	*/
@@ -51,7 +48,6 @@ class Data_helper {
 
 	/*
 	@description : for escaping single quotes from string
-	@developer : Mohit Singh Rawat
 	@return escaped string
 	*/	
 	public static function __mssqlEscape($_str) 
@@ -64,7 +60,6 @@ class Data_helper {
 
 	/*
 	@description : Pagination
-	@developer : Mohit Singh Rawat
 	@params : $_item_per_page,$_currentPage,$_total_records,$_totalPages,$_pageUrl
 	@return the paginate html
 	*/
@@ -119,7 +114,6 @@ class Data_helper {
 
 	/*
 	@description : Convert Price to Crores or Lakhs or Thousands
-	@developer : Mohit Singh Rawat
 	@return : e.g. 1 Crore 5 thousand 
 	*/
 	public static function __convertCurrency($_number)
@@ -157,7 +151,6 @@ class Data_helper {
 
 	/**
 	*@description : Converts an array to an object.
-	*@developer : Claus Bayer
 	* @param //$array is a multidimensional array
 	* The array to be converted.
 	* @return object|null
@@ -171,7 +164,6 @@ class Data_helper {
 
     /**
     *@description : Converts a string or an object to an array.
-    *@developer : Claus Bayer
 	* @param string|object $var
 	* String or object.
 	* @return array|null
@@ -191,7 +183,6 @@ class Data_helper {
 
     /**
 	*@description : Returns the first element of an array.
-	*@developer : Claus Bayer
 	* @param array $array
 	* The concerned array.
 	* @return mixed
@@ -206,7 +197,6 @@ class Data_helper {
     /**
     *
    	*@description : Returns the first element of an array.
-	*@developer : Claus Bayer
     * @param array $array
     * The concerned array.
     * @return mixed
@@ -219,7 +209,6 @@ class Data_helper {
 
 	/**
 	*@description :  Gets a value in an array by dot notation for the keys.
-	*@developer : Claus Bayer 
 	* #### Example
 	* $array = [
 	*      'foo' => 'bar',
@@ -257,7 +246,6 @@ class Data_helper {
 
     /**
 	 *@description :  Sets a value in an array using the dot notation.
-	 * @developer : Claus Bayer 
 	 * array_set( string key, mixed value, array $array ): boolean
 	 * #### Example 1
 	 * ```php
@@ -310,7 +298,6 @@ class Data_helper {
 
     /**
 	*@description :Tests if a string contains a given element. Ignore case sensitivity.
-	*@developer : Claus Bayer 
 	* $string = 'The quick brown fox jumps over the lazy dog';
 	* // bool(true)
 	* @param string|array $needle
@@ -332,7 +319,6 @@ class Data_helper {
 
     /**
 	*@description : Return the part of a string after the last occurrence of a given search value.
-	*@developer : Claus Bayer 
 	* str_after_last( string $search, string $string ): string
 	* #### Example
 	* $path = "/var/www/html/public/img/image.jpg";
@@ -354,7 +340,6 @@ class Data_helper {
 
     /**
     *@description : Validate a given email address.
-    *@developer : Mohit Singh Rawat
     * @param string $email
     * The email address to test.
     *
@@ -368,7 +353,6 @@ class Data_helper {
 
     /**
 	*@description : Get the current ip address of the user.
-	*@developer : Mohit singh Rawat
 	* #### Example
 	* echo ip();
 	* @return string|null
@@ -388,7 +372,6 @@ class Data_helper {
 
     /*
 	@description :  outlook email validator
-	@developer : Mohit singh Rawat
 	reference :	<a href="http://msdn.microsoft.com/en-us/library/aa338201.aspx">
     */
     public static function __emailValidator($_emailTemplate){
