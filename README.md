@@ -1,3 +1,4 @@
+<pre>
 1. Describe possible performance optimizations for your Code.
 
 Ans: App file should be improved becuase the way class and methods are getting include can be more clean & easy.
@@ -34,3 +35,5 @@ Features:
 7.Routing
 8.MVC secure architecture
 9.CSRF, XSS, SQL injection security
+
+</pre>
