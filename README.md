@@ -18,7 +18,7 @@ to take my coding level to more upper level.
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-custom mvc framwork in php 7 with mixers of Decorator, Factory and Singleton design pattern with suport of mysql and mssql.
+custom mvc framwork in php 7 with mixers of Decorator, Factory and Singleton design patterns | suport of mysql and mssql databases.
 
 @auther : Kuldeep Singh @email : rocky198811@gmail.com @version : 1.0
 
