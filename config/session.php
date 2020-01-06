@@ -9,7 +9,7 @@ class Session
 	public 	$_sessionChain = [], $_lastStoredSessionData = [];
 
 	/* To initialize the session	*/
-	public function __initSession($_sessionPrefix)
+	public function __initSession(string $_sessionPrefix)
 	{
 		
 		if(self::$_sessionStarted == false)
@@ -32,7 +32,7 @@ class Session
 	}
 
 	/* To get and remove the session */
-	public function __getSession($_deleteKey, $_flush = ''){
+	public function __getSession(string $_deleteKey, string $_flush = ''){
 
 		$this->__readSession($_SESSION[$this->_sessionPrfx], $_deleteKey, $_flush);
 		return (!empty($this->_lastStoredSessionData))?$this->_lastStoredSessionData:'';
