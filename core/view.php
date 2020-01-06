@@ -84,7 +84,8 @@ class View extends \config\config
 	protected function __generateCsrfToken(){
 
 		if (empty($_SESSION[$this->_sessionPrefix]['csrf_token_hash'])) {
-			$_SESSION[$this->_sessionPrefix]['csrf_token_hash'] = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));//bin2hex(random_bytes(32));
+			echo $_SESSION[$this->_sessionPrefix]['csrf_token_hash'];
+			$_SESSION[$this->_sessionPrefix]['csrf_token_hash'] = (floor(phpversion()) >= 7)? bin2hex(random_bytes(32)):bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
 		}
 		$this->_csrfToken = $_SESSION[$this->_sessionPrefix]['csrf_token_hash'];
 	}

@@ -58,7 +58,7 @@ class Config  extends session
 		/* application access directory configurations */
 		$this->_serverName		=	$_SERVER['SERVER_NAME'];
 		$this->_protocol 		=	(isset($_SERVER["HTTPS"]) ? 'https:' : 'http:');
-		$this->_extraPath		=	($this->_serverName == 'localhost')? '/wunderfleet-task/':'/';
+		$this->_extraPath		=	($this->_serverName == 'localhost')? '/custome-mvc-sample-application/':'/';
 		$this->_wwwRoot 		=	$this->_protocol.'//'.$this->_serverName.$this->_extraPath;
 		$this->_indexFile		=	($this->_serverName == 'localhost')? 'index.php':'';
 		$this->_basePath 		=	rtrim($this->_protocol.'//'.$this->_serverName.$this->_extraPath.$this->_indexFile, '/');

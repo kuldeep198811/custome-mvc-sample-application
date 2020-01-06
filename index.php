@@ -17,7 +17,7 @@ date_default_timezone_set('US/Eastern');
 
 // **PREVENTING SESSION HIJACKING**
 // Prevents javascript XSS attacks aimed to steal the session ID
-ini_set('session.cookie_httponly', 1);
+//ini_set('session.cookie_httponly', 1);
 
 // **PREVENTING SESSION FIXATION**
 // Session ID cannot be passed through URLs

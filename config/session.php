@@ -11,6 +11,7 @@ class Session
 	/* To initialize the session	*/
 	public function __initSession($_sessionPrefix)
 	{
+		
 		if(self::$_sessionStarted == false)
 		{
 			session_start();
