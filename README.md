@@ -35,5 +35,5 @@ Features:
 7.Routing
 8.MVC secure architecture
 9.CSRF, XSS, SQL injection security
-
+10.PSR-2 coding standard practice
 </pre>
